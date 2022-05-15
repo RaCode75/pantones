@@ -30,7 +30,11 @@ app.use((req, res, next) => {
 
 //routes
 app.use(require('./routes'));
+app.use(require('./routes/authentication'));
+app.use('/links'.require('./routes/links'));
+
 //public
+app.use(express.static(path.join(__dirname, 'public')));
 
 //starting the server
 app.listen(app.get('port'), () => {
