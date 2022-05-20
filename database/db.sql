@@ -14,3 +14,25 @@ ALTER TABLE users
 
 ALTER TABLE users   
     MODIFY id INT(11) NOT NULL AUTO_INCREMENT;
+
+-- CLIENTS TABLE
+CREATE TABLE clients (
+    id INT(11) NOT NULL,
+    name VARCHAR(150) NOT NULL,
+    job VARCHAR(255) NOT NULL,
+    formula TEXT,
+    user_id INT(11),
+    created_at timestamp NOT NULL DEFAULT current_timestamp,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+ALTER TABLE clients
+    ADD PRIMARY KEY (id);
+
+ALTER TABLE clients
+    MODIFY id INT(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE clients
+    MODIFY user_id INT(11) NOT NULL;
+
+DESCRIBE clients;
