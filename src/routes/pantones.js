@@ -17,7 +17,8 @@ router.post('/add', async (req, res) => {
         recipe
     };
     try{
-    await pool.query('INSERT INTO clients set ?',[newPantone])
+    await pool.query('INSERT INTO clients set ?',[newPantone]);
+    req.flash('success', 'Pantone guardado correctamente');
     res.redirect('/pantones');
     } catch(err){
         console.log(err);
