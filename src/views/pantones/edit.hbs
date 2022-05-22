@@ -3,22 +3,22 @@
         <div class="col-md-4 mx-auto">
             <div class="card">
                 <div class="card-body">
-                    <form action="/pantones/add" method="POST">
+                    <form action="/pantones/edit/{{pantone.id}}" method="POST">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="cliente" placeholder="Cliente" autofocus>
+                            <input type="text" class="form-control" value="{{pantone.cliente}}" name="cliente" placeholder="Cliente" autofocus>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="color" placeholder="Pantone">
+                            <input type="text" class="form-control" value="{{pantone.color}}" name="color" placeholder="Pantone">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="trabajo" placeholder="Trabajo y Ot">
+                            <input type="text" class="form-control" value="{{pantone.trabajo}}" name="trabajo" placeholder="Trabajo y Ot">
                         </div>
                         <div class="form-group">
-                            <textarea  name="recipe" class="form-control" rows="10" placeholder="Formula"></textarea>
+                            <textarea  name="recipe" class="form-control" rows="10" placeholder="Formula">{{pantone.recipe}} </textarea>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-success btn-block">
-                                Agregar
+                                Guardar
                             </button>
                         </div>
                     </form>
