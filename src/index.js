@@ -49,7 +49,7 @@ app.use(require('./routes/authentication'));
 app.use('/pantones',require('./routes/pantones'));
 
 //public
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 //starting the server
 app.listen(app.get('port'), () => {

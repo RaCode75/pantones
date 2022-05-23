@@ -38,6 +38,7 @@ router.get('/delete/:id', async(req, res)=>{
     const { id } = req.params;
     try{
         await pool.query('DELETE FROM clients WHERE ID = ?',[id]);
+        req.flash('success', 'Pantone borrado correctamente');
         res.redirect('/pantones');
     } catch(err){
         console.log(err);
@@ -48,7 +49,6 @@ router.get('/edit/:id', async(req, res)=>{
     const { id } = req.params;
     try{
     const pantone = await pool.query('SELECT * FROM clients WHERE id = ?', [id]);
-    
     res.render('pantones/edit', {pantone: pantone[0]});
     } catch(err){
         console.log(err);
@@ -66,6 +66,7 @@ router.post('/edit/:id', async(req, res)=>{
     };
     try{
         await pool.query('UPDATE clients set ? WHERE id = ?', [editPant, id]);
+        req.flash('success', 'Pantone editado correctamente');
         res.redirect('/pantones');
     }catch(err){
         console.log(err);
