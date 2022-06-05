@@ -12,9 +12,12 @@
                         <p class="m-2">{{ color }}</p>
                         <p class="m-2">{{ trabajo }}</p>
                         <p class="m-2">{{ timeago created_at }}</p>
+                        <p class="m-2">{{ user }}</p>
                         <textarea class="m-2">{{ recipe }}</textarea>
+                        {{#if user}}
                         <a href="pantones/delete/{{ id }}" class="btn btn-danger">Borrar</a>
                         <a href="pantones/edit/{{ id }}" class="btn btn-secondary">Editar</a>
+                         {{/if}}
                     </div>
                 </div>
             </div>

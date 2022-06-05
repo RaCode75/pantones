@@ -2,35 +2,39 @@ const express = require('express');
 const router = express.Router();
 
 const passport = require('passport');
+const { isLoggedIn } = require('../lib/secauth');
 
 router.get('/register', (req, res)=>{
     res.render('auth/register');
 });
 
 router.post('/register',  passport.authenticate('local.register', {
-        successRedirect: '/profile',
+        successRedirect: '/pantones',
         failureRedirect: '/register',
         failureFlash: true
 
 }));
 
-router.get('/profile', (req, res) =>{
-    res.send('this id you profile');
+router.get('/profile', isLoggedIn,(req, res) =>{
+    res.send('this is you profile');
 });
 
 router.get('/login', (req, res)=>{
     res.render('auth/login');
 });
 
-router.post('/login',  passport.authenticate('local.login', {
-        successRedirect: '/profile',
+router.post('/login', (req, res) =>{
+    
+    passport.authenticate('local.login', {
+        successRedirect: '/pantones',
         failureRedirect: '/login',
         failureFlash: true
+    })(req, res);
+});
 
-}));
-
-router.get('/profile', (req, res) =>{
-    res.send('this id you profile');
+router.get('/logout', (req, res) =>{
+    req.logOut();
+    res.redirect('/login');
 });
 
 module.exports = router;

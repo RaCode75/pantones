@@ -4,7 +4,7 @@ const path = require('path');
 const exphbs = require('express-handlebars');
 const flash = require('connect-flash');
 const session = require('express-session');
-const mySQLStore = require('express-mysql-session');
+const mySQLStore = require('express-mysql-session')(session);
 const passport = require('passport');
 
 const { database } = require('./keys');
@@ -38,12 +38,16 @@ app.use(flash());
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
+app.use(passport.initialize());
 app.use(passport.session());
+app.use(validator());
 
 
 //global variables
 app.use((req, res, next) => {
     app.locals.success = req.flash('success');
+    app.locals.message = req.flash('message');
+    app.locals.user = req.user;
     next();
 });
 
