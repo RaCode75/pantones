@@ -7,13 +7,16 @@ const session = require('express-session');
 const mySQLStore = require('express-mysql-session')(session);
 const passport = require('passport');
 
-const { database } = require('./keys');
 
+
+
+const { database } = require('./keys');
 
 
 //initializations
 const app = express();
-require('./lib/passport')
+require('./lib/passport');
+
 
 //settings
 app.set('port', process.env.PORT || 4000);
@@ -40,7 +43,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(validator());
+
 
 
 //global variables

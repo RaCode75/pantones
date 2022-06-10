@@ -1,6 +1,7 @@
 const express = require('express');
 const { redirect } = require('express/lib/response');
 const router = express.Router();
+const { isLoggedIn } = require('../lib/secauth');
 
 const pool = require('../database');
 
@@ -25,10 +26,15 @@ router.post('/add', async (req, res) => {
     }
 });
 
-router.get('/', async (req, res) => {
+router.get('/', isLoggedIn, async (req, res) => {
     try{
+    const userId = req.user.id
+    const user = await pool.query('SELECT username, permisos FROM users WHERE ID=?', [userId])
+    const data = user[0];
     const pantones = await pool.query('SELECT * FROM clients');
-    res.render('pantones/list', { pantones });
+    const allData = {pantones, ...data}
+    res.render('pantones/list', { allData });
+    console.log(allData);
     } catch(err){
         console.log(err);
     }

@@ -1,6 +1,6 @@
 <div class="container p-4">
     <div class="row">
-        {{#each pantones}}
+        {{#each allData.pantones }}
             <div class="col-md-3">
                 <div class="card text-center">
                     <div class="card-body">
@@ -12,12 +12,13 @@
                         <p class="m-2">{{ color }}</p>
                         <p class="m-2">{{ trabajo }}</p>
                         <p class="m-2">{{ timeago created_at }}</p>
-                        <p class="m-2">{{ user }}</p>
                         <textarea class="m-2">{{ recipe }}</textarea>
-                        {{#if user}}
+
+                       
+                            {{#if ../allData.permisos}}
                         <a href="pantones/delete/{{ id }}" class="btn btn-danger">Borrar</a>
                         <a href="pantones/edit/{{ id }}" class="btn btn-secondary">Editar</a>
-                         {{/if}}
+                            {{/if}}
                     </div>
                 </div>
             </div>

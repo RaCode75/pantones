@@ -1,8 +1,10 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+
 const pool = require('../database');
 const helpers = require('../lib/helpers');
+
 
 passport.use('local.login', new LocalStrategy ({
     usernameField: 'usuario',
@@ -32,7 +34,7 @@ passport.use('local.register', new LocalStrategy({
     passReqToCallback: true
 }, async (req, usuario, password, done)=>{
     const { permisos } = req.body;
-    const newUser = {
+     const newUser = {
         username: usuario,
         password,
         permisos
