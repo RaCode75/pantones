@@ -15,10 +15,6 @@ router.post('/register',  passport.authenticate('local.register', {
 
 }));
 
-router.get('/profile', isLoggedIn,(req, res) =>{
-    res.send('this is you profile');
-});
-
 router.get('/login', (req, res)=>{
     res.render('auth/login');
 });
