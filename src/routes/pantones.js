@@ -5,8 +5,12 @@ const { isLoggedIn } = require('../lib/secauth');
 
 const pool = require('../database');
 
-router.get('/add', (req, res) =>{
-    res.render('pantones/add');
+router.get('/add', isLoggedIn, async(req, res) =>{
+    const userId = req.user.id
+    const user = await pool.query('SELECT username, permisos FROM users WHERE ID=?', [userId])
+    const data = user[0];
+    const allData = data
+    res.render('pantones/add', {allData});
 });
 
 router.post('/add', async (req, res) => {
@@ -26,15 +30,23 @@ router.post('/add', async (req, res) => {
     }
 });
 
-router.get('/', isLoggedIn, async (req, res) => {
+router.get('/',  async (req, res) => {
     try{
+        if(!req.user){
+            const userId = 0
+            const user = await pool.query('SELECT username, permisos FROM users WHERE ID=?', [userId])
+            const data = user[0];
+            const pantones = await pool.query('SELECT * FROM clients');
+            const allData = {pantones, ...data}
+            res.render('pantones/list', { allData });
+        }else{
     const userId = req.user.id
     const user = await pool.query('SELECT username, permisos FROM users WHERE ID=?', [userId])
     const data = user[0];
     const pantones = await pool.query('SELECT * FROM clients');
     const allData = {pantones, ...data}
     res.render('pantones/list', { allData });
-    console.log(allData);
+        }
     } catch(err){
         console.log(err);
     }

@@ -7,21 +7,34 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
+                  {{#if allData.permisos}}
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/pantones/add">Agregar</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
+          {{/if}}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+          Buscar por:
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+          <li><a class="dropdown-item" name="bus_pantone" href="#">Pantone</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" name="bus_cliente" href="#">Cliente</a></li>
+        </ul>
+      </li>
 
         <li>
            <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    <input class="form-control mr-sm-2" type="search" placeholder="Tu busqueda" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
   </form>
         </li>
                 <li class="nav-item">
+                  {{#if allData.username}}
           <a class="btn btn-danger ml-2 my-sm-0" href="/logout">Salir</a>
+          {{else}}
+          <a class="btn btn-danger ml-2 my-sm-0" href="/logout">Login</a>
+          {{/if}}
         </li>
       
       </ul>

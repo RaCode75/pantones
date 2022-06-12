@@ -4,3 +4,7 @@ body{
    
 }
 
+.danger{
+    background-color: rgb(230, 122, 95);
+    color:whitesmoke;
+}
