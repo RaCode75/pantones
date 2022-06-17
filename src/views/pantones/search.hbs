@@ -9,7 +9,12 @@
                                 {{cliente}}
                             </h3>
                         </a>
+                        <p class="m-2">{{ color }}</p>
+                        <p class="m-2">{{ trabajo }}</p>
+                        <p class="m-2">{{ timeago created_at }}</p>
+                        <textarea class="m-2 mx-auto">{{ recipe }}</textarea>
 
+                       
                             {{#if ../allData.permisos}}
                         <a href="pantones/delete/{{ id }}" class="btn btn-danger">Borrar</a>
                         <a href="pantones/edit/{{ id }}" class="btn btn-secondary">Editar</a>
@@ -21,7 +26,7 @@
             <div class="col-md-4 mx-auto">
                 <div class="card card-body text-center">
                     <p>No hay pantones de este cliente aun!.</p>
-                    <a href="pantones/add">Agrega un pantone</a>
+                    <a href="/pantones/add">Agrega un pantone</a>
                 </div>
             </div>
         {{/each}}

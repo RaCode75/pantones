@@ -40,17 +40,73 @@ router.get('/',  async (req, res) => {
             const allData = {pantones, ...data}
             res.render('pantones/list', { allData });
         }else{
-    const userId = req.user.id
-    const user = await pool.query('SELECT username, permisos FROM users WHERE ID=?', [userId])
-    const data = user[0];
-    const pantones = await pool.query('SELECT * FROM clients');
-    const allData = {pantones, ...data}
-    res.render('pantones/list', { allData });
+            const userId = req.user.id
+            const user = await pool.query('SELECT username, permisos FROM users WHERE ID=?', [userId])
+            const data = user[0];
+            const pantones = await pool.query('SELECT * FROM clients');
+            const allData = {pantones, ...data}
+            res.render('pantones/list', { allData });
+           
         }
     } catch(err){
         console.log(err);
     }
 });
+
+router.post('/search', async(req, res) =>{
+    const bus = req.body.busqueda
+    const opt = req.body.opt
+    console.log(bus)
+    try{
+        if(!req.user){
+            const userId = 0
+            const user = await pool.query('SELECT username, permisos FROM users WHERE ID=?', [userId])
+            const data = user[0];
+            const pantones = await pool.query(`SELECT * FROM clients WHERE ${opt.toUpperCase()}=?`,bus);
+            const allData = {pantones, ...data}
+            res.render('pantones/search', { allData });
+        }else{
+            const userId = req.user.id
+            const user = await pool.query('SELECT username, permisos FROM users WHERE ID=?', [userId])
+            const data = user[0];
+            const pantones = await pool.query(`SELECT * FROM clients WHERE ${opt.toUpperCase()}=?`,bus);
+            const allData = {pantones, ...data}
+            res.render('pantones/search', { allData });
+           
+        }
+    } catch(err){
+        console.log(err);
+    }
+    
+})
+
+router.get('/search',  async (req, res) => {
+
+    try{
+        if(!req.user){
+            const userId = 0
+            const user = await pool.query('SELECT username, permisos FROM users WHERE ID=?', [userId])
+            const data = user[0];
+            const pantones = await pool.query('SELECT * FROM clients');
+            const allData = {pantones, ...data}
+            res.render('pantones/search', { allData });
+        }else{
+            const userId = req.user.id
+            const user = await pool.query('SELECT username, permisos FROM users WHERE ID=?', [userId])
+            const data = user[0];
+            const pantones = await pool.query('SELECT * FROM clients');
+            const allData = {pantones, ...data}
+            res.render('pantones/search', { allData });
+           
+        }
+    } catch(err){
+        console.log(err);
+    }
+});
+
+
+
+
 
 router.get('/delete/:id', async(req, res)=>{
     const { id } = req.params;
