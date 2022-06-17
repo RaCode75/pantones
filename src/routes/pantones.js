@@ -104,6 +104,29 @@ router.get('/search',  async (req, res) => {
     }
 });
 
+router.get('/search/:cliente',  async (req, res) => {
+    const cliente = req.params.cliente
+    try{
+        if(!req.user){
+            const userId = 0
+            const user = await pool.query('SELECT username, permisos FROM users WHERE ID=?', [userId])
+            const data = user[0];
+            const pantones = await pool.query('SELECT * FROM clients WHERE cliente =?', cliente);
+            const allData = {pantones, ...data}
+            res.render('pantones/search', { allData });
+        }else{
+            const userId = req.user.id
+            const user = await pool.query('SELECT username, permisos FROM users WHERE ID=?', [userId])
+            const data = user[0];
+            const pantones = await pool.query('SELECT * FROM clients WHERE cliente =?', cliente);
+            const allData = {pantones, ...data}
+            res.render('pantones/search', { allData });
+           
+        }
+    } catch(err){
+        console.log(err);
+    }
+});
 
 
 
