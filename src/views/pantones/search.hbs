@@ -16,7 +16,7 @@
 
                        
                             {{#if ../allData.permisos}}
-                        <a href="pantones/delete/{{ id }}" class="btn btn-danger">Borrar</a>
+                        <a href="pantones/delete/{{ id }}" class="btn btn-danger" onclick="return confirm('Estas seguro?')">Borrar</a>
                         <a href="pantones/edit/{{ id }}" class="btn btn-secondary">Editar</a>
                             {{/if}}
                     </div>
