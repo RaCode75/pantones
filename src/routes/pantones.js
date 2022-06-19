@@ -36,14 +36,14 @@ router.get('/',  async (req, res) => {
             const userId = 0
             const user = await pool.query('SELECT username, permisos FROM users WHERE ID=?', [userId])
             const data = user[0];
-            const pantones = await pool.query('SELECT * FROM clients');
+            const pantones = await pool.query('SELECT DISTINCT cliente FROM clients');
             const allData = {pantones, ...data}
             res.render('pantones/list', { allData });
         }else{
             const userId = req.user.id
             const user = await pool.query('SELECT username, permisos FROM users WHERE ID=?', [userId])
             const data = user[0];
-            const pantones = await pool.query('SELECT * FROM clients');
+            const pantones = await pool.query('SELECT DISTINCT cliente  FROM clients');
             const allData = {pantones, ...data}
             res.render('pantones/list', { allData });
            
@@ -163,6 +163,28 @@ router.post('/edit/:id', async(req, res)=>{
     };
     try{
         await pool.query('UPDATE clients set ? WHERE id = ?', [editPant, id]);
+        req.flash('success', 'Pantone editado correctamente');
+        res.redirect('/pantones');
+    }catch(err){
+        console.log(err);
+    }
+});
+
+router.get('/editc/:cliente', async(req, res)=>{
+    const { cliente } = req.params
+    try{
+    const pantone = await pool.query('SELECT * FROM clients WHERE cliente = ?', [cliente]);
+    res.render('pantones/editclient', {pantone: pantone[0]});
+    } catch(err){
+        console.log(err);
+    }
+});
+
+router.post('/editc/:cliente', async(req, res)=>{
+    const {cliente} = req.params
+    const {clientenew} = req.body
+    try{
+        await pool.query(`UPDATE clients SET cliente = REPLACE( cliente,\'${cliente}\', \'${clientenew}\') `);
         req.flash('success', 'Pantone editado correctamente');
         res.redirect('/pantones');
     }catch(err){
